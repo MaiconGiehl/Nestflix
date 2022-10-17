@@ -1,9 +1,10 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { UsersModule } from './users/users.module';
+import { UsersModule } from './modules/users.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppConfigModule } from './appconfig.module';
+import UserEntity from './models/entities/user.entity';
 
 @Module({
   imports: [
@@ -14,7 +15,8 @@ import { AppConfigModule } from './appconfig.module';
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
-      entities: [],
+      // entities: [__dirname + '/../../**/*.entity.{js,ts}'],
+      entities: [UserEntity],
       synchronize: false,
       ssl: {
         rejectUnauthorized: false,
