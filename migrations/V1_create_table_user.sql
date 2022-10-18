@@ -14,5 +14,5 @@ INSERT INTO users
 )
 VALUES
 (
-	1, 'Leandro', true, NOW()::timestamp, NOW()::timestamp
+	1, 'Maicon', true, NOW()::timestamp, NOW()::timestamp
 )

@@ -1,24 +1,24 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity('usuarios')
+@Entity('users')
 export default class UserEntity {
   @PrimaryGeneratedColumn()
   id?: number;
 
-  @Column({ name: 'nome', type: 'varchar' })
+  @Column({ name: 'name', type: 'varchar' })
   name: string;
 
-  @Column({ name: 'ativo', type: 'boolean' })
+  @Column({ name: 'active', type: 'boolean' })
   active: boolean;
 
   @Column({
-    name: 'criado_em',
+    name: 'created_in',
     type: 'timestamp',
   })
   createdAt: Date;
 
   @Column({
-    name: 'atualizado_em',
+    name: 'updated_in',
     type: 'timestamp',
   })
   updatedAt: Date;
