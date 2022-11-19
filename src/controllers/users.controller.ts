@@ -9,6 +9,7 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Get()
+  @ApiCreatedResponse({type: UsersOutput, isArray: true})
   findAll() {
     return this.usersService.findAll();
   }

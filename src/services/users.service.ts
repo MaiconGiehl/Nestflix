@@ -12,7 +12,7 @@ export class UsersService {
   ) {}
 
   findAll() {
-    return this.userRepo.find();
+    const userENtities = this.userRepo.find();
   }
 
   async findOne(id: number) {
