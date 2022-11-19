@@ -1,8 +1,6 @@
-/* eslint-disable prettier/prettier */
 import { Injectable } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config/dist';
+import { ConfigService } from '@nestjs/config';
 
-// Permite ser usado por oturos serviços através de um construtor
 @Injectable()
 export default class AppConfig {
   constructor(private configService: ConfigService) {}

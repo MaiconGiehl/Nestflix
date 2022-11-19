@@ -2,9 +2,9 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsersModule } from './modules/users.module';
+import { FavoriteMoviesModule } from './modules/favoriteMovies.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppConfigModule } from './appconfig.module';
-import UserEntity from './models/entities/user.entity';
 
 @Module({
   imports: [
@@ -15,8 +15,7 @@ import UserEntity from './models/entities/user.entity';
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
-      // entities: [__dirname + '/../../**/*.entity.{js,ts}'],
-      entities: [UserEntity],
+      entities: ['./src/models/entities/*.ts'],
       synchronize: false,
       ssl: {
         rejectUnauthorized: false,
@@ -25,6 +24,7 @@ import UserEntity from './models/entities/user.entity';
     }),
     AppConfigModule,
     UsersModule,
+    FavoriteMoviesModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -8,17 +8,20 @@ export default class UserEntity {
   @Column({ name: 'name', type: 'varchar' })
   name: string;
 
+  @Column({ name: 'password', type: 'varchar' })
+  password: string;
+
   @Column({ name: 'active', type: 'boolean' })
   active: boolean;
 
   @Column({
-    name: 'created_in',
+    name: 'created_at',
     type: 'timestamp',
   })
   createdAt: Date;
 
   @Column({
-    name: 'updated_in',
+    name: 'updated_at',
     type: 'timestamp',
   })
   updatedAt: Date;
