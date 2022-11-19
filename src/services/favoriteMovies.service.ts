@@ -91,4 +91,8 @@ export class FavoriteMoviesService {
   remove(id: number) {
     return `This action removes a #${id} movie`;
   }
+
+  post(favoriteMovie: FavoriteMoviesEntity) {
+    this.favoriteMoviesRepo.create(favoriteMovie);
+  }
 }
