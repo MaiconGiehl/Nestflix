@@ -15,13 +15,13 @@ export default class UserEntity {
   active: boolean;
 
   @Column({
-    name: 'created_at',
+    name: 'created_in',
     type: 'timestamp',
   })
   createdAt: Date;
 
   @Column({
-    name: 'updated_at',
+    name: 'updated_in',
     type: 'timestamp',
   })
   updatedAt: Date;

@@ -12,19 +12,16 @@ export default class FavoriteMoviesEntity {
   image: string;
 
   @Column({
-    name: 'created_at',
+    name: 'created_in',
     type: 'timestamp',
   })
   createdAt: Date;
 
   @Column({
-    name: 'updated_at',
+    name: 'updated_in',
     type: 'timestamp',
   })
   updatedAt: Date;
-
-  @Column({ name: 'active', type: 'boolean' })
-  active: boolean;
 
   @Column({ name: 'user_id', type: 'integer' })
   user_id: number;

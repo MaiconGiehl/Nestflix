@@ -8,5 +8,8 @@ export default class FavoriteMoviesInput {
   title: string;
 
   @ApiProperty()
-  active: boolean;
+  image: string;
+
+  @ApiProperty()
+  user_id: number;
 }

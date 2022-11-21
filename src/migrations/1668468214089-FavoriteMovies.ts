@@ -23,15 +23,11 @@ export class FavoriteMovies1668468214089 implements MigrationInterface {
             type: 'varchar(1000)',
           },
           {
-            name: 'active',
-            type: 'boolean',
-          },
-          {
-            name: 'created_at',
+            name: 'created_in',
             type: 'timestamp',
           },
           {
-            name: 'updated_at',
+            name: 'updated_in',
             type: 'timestamp',
           },
           {

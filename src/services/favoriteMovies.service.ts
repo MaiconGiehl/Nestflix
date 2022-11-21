@@ -25,6 +25,19 @@ export class FavoriteMoviesService {
     return outputList;
   }
 
+  async findByUser(user_id: number): Promise<FavoriteMoviesOutput[]> {
+    const favoriteMoviesEntities: FavoriteMoviesEntity[] =
+      await this.favoriteMoviesRepo.find({
+        where: { user_id },
+      });
+
+    const outputList = favoriteMoviesEntities.map((entity) => {
+      return this.favoriteMoviesConverter.entityToOutput(entity);
+    });
+
+    return outputList;
+  }
+
   async save(input: FavoriteMoviesInput) {
     const entity = new FavoriteMoviesEntity();
 
@@ -88,8 +101,14 @@ export class FavoriteMoviesService {
     return output;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} movie`;
+  async remove(id: number) {
+    const favoriteMoviesEntity: FavoriteMoviesEntity =
+      await this.favoriteMoviesRepo.findOne({
+        where: { id },
+      });
+
+    this.favoriteMoviesRepo.remove(favoriteMoviesEntity);
+    return `Movie ${id} successfuly removed`;
   }
 
   post(favoriteMovie: FavoriteMoviesEntity) {

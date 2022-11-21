@@ -15,23 +15,23 @@ export class CreateUser1668388238783 implements MigrationInterface {
             generationStrategy: 'increment',
           },
           {
-            name: 'nome',
+            name: 'name',
             type: 'varchar(200)',
           },
           {
-            name: 'senha',
+            name: 'password',
             type: 'varchar(1000)',
           },
           {
-            name: 'ativo',
+            name: 'active',
             type: 'boolean',
           },
           {
-            name: 'criado_em',
+            name: 'created_in',
             type: 'timestamp',
           },
           {
-            name: 'atualizado_em',
+            name: 'updated_in',
             type: 'timestamp',
           },
         ],

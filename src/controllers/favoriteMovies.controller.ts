@@ -25,6 +25,14 @@ export class FavoriteMoviesController {
     return this.favoriteMoviesService.findAll();
   }
 
+  @Get(':user_id')
+  @ApiCreatedResponse({ type: FavoriteMoviesOutput, isArray: true })
+  findByUser(
+    @Param('user_id') user_id: number,
+  ): Promise<FavoriteMoviesOutput[]> {
+    return this.favoriteMoviesService.findByUser(user_id);
+  }
+
   @Post()
   save(@Body() input: FavoriteMoviesInput) {
     return this.favoriteMoviesService.save(input);
