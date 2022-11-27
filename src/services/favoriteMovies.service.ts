@@ -6,6 +6,8 @@ import FavoriteMoviesEntity from '../models/entities/favoriteMovies.entity';
 import FavoriteMoviesConverter from '../models/converters/favoriteMovies.converter';
 import FavoriteMoviesOutput from '../models/dto/output/favoriteMovies.output';
 import FavoriteMoviesInput from '../models/dto/input/favoriteMovies.input';
+import { UsersService } from './users.service';
+import UserEntity from '../models/entities/user.entity';
 
 @Injectable()
 export class FavoriteMoviesService {
@@ -13,14 +15,17 @@ export class FavoriteMoviesService {
     @InjectRepository(FavoriteMoviesEntity)
     private readonly favoriteMoviesRepo: Repository<FavoriteMoviesEntity>,
     private readonly favoriteMoviesConverter: FavoriteMoviesConverter,
+    private readonly usersService: UsersService,
   ) {}
 
   async findAll(): Promise<FavoriteMoviesOutput[]> {
     const favoriteMoviesEntities = await this.favoriteMoviesRepo.find();
 
-    const outputList = favoriteMoviesEntities.map((entity) => {
-      return this.favoriteMoviesConverter.entityToOutput(entity);
-    });
+    const outputList: FavoriteMoviesOutput[] = favoriteMoviesEntities.map(
+      (entity) => {
+        return this.favoriteMoviesConverter.entityToOutput(entity);
+      },
+    );
 
     return outputList;
   }
@@ -28,7 +33,7 @@ export class FavoriteMoviesService {
   async findByUser(user_id: number): Promise<FavoriteMoviesOutput[]> {
     const favoriteMoviesEntities: FavoriteMoviesEntity[] =
       await this.favoriteMoviesRepo.find({
-        where: { user_id },
+        where: { user: { id: user_id } },
       });
 
     const outputList = favoriteMoviesEntities.map((entity) => {
@@ -36,21 +41,6 @@ export class FavoriteMoviesService {
     });
 
     return outputList;
-  }
-
-  async save(input: FavoriteMoviesInput) {
-    const entity = new FavoriteMoviesEntity();
-
-    const convertedEntity = this.favoriteMoviesConverter.inputToEntity(
-      input,
-      entity,
-    );
-
-    const savedEntity = await this.favoriteMoviesRepo.save(convertedEntity);
-
-    const output = this.favoriteMoviesConverter.entityToOutput(savedEntity);
-
-    return output;
   }
 
   async update(
@@ -111,7 +101,26 @@ export class FavoriteMoviesService {
     return `Movie ${id} successfuly removed`;
   }
 
-  post(favoriteMovie: FavoriteMoviesEntity) {
-    this.favoriteMoviesRepo.create(favoriteMovie);
+  async save(favoriteMovie: FavoriteMoviesInput) {
+    const userEntity: UserEntity = await this.usersService.findOneReturnEntity(
+      favoriteMovie.user_id,
+    );
+
+    const favoriteMoviesEntity =
+      await this.favoriteMoviesConverter.inputToEntity(
+        favoriteMovie,
+        new FavoriteMoviesEntity(),
+      );
+
+    favoriteMoviesEntity.user = userEntity;
+
+    const savedEntity = await this.favoriteMoviesRepo.save(
+      favoriteMoviesEntity,
+    );
+
+    const favoriteMoviesOutput: FavoriteMoviesOutput =
+      this.favoriteMoviesConverter.entityToOutput(savedEntity);
+
+    return favoriteMoviesOutput;
   }
 }

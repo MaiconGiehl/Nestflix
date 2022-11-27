@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
+import UsersOutput from './users.output';
 
 export default class FavoriteMoviesOutput {
   @ApiProperty()
@@ -17,5 +18,11 @@ export default class FavoriteMoviesOutput {
   updatedAt: Date;
 
   @ApiProperty()
-  user_id: number;
+  user: UsersOutput;
+  output: {
+    name: string;
+    active: boolean;
+    createdAt: Date;
+    updatedAt: Date;
+  };
 }

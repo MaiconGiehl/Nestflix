@@ -9,11 +9,22 @@ import UsersInput from '../models/dto/input/users.input';
 
 @Injectable()
 export class UsersService {
+  static userRepo: Repository<UserEntity>;
+  static usersConverter: UsersConverter;
+
   constructor(
     @InjectRepository(UserEntity)
     private readonly userRepo: Repository<UserEntity>,
     private readonly usersConverter: UsersConverter,
   ) {}
+
+  static async findUserID(id: number) {
+    const userEntity: UsersInput = await this.userRepo.findOne({
+      where: { id: id },
+    });
+
+    return userEntity;
+  }
 
   async findAll(): Promise<UsersOutput[]> {
     const userEntities = await this.userRepo.find();
@@ -60,6 +71,14 @@ export class UsersService {
     return output;
   }
 
+  async findOneReturnEntity(id: number): Promise<UserEntity> {
+    const userEntity: UserEntity = await this.userRepo.findOne({
+      where: { id: id },
+    });
+
+    return userEntity;
+  }
+
   async updateName(id: number, name: string) {
     const userEntity = await this.userRepo.findOne({ where: { id } });
 
@@ -72,7 +91,12 @@ export class UsersService {
     return output;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} user`;
+  async remove(id: number) {
+    const favoriteMoviesEntity: UserEntity = await this.userRepo.findOne({
+      where: { id },
+    });
+
+    this.userRepo.remove(favoriteMoviesEntity);
+    return `User ${id} successfuly removed`;
   }
 }

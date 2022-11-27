@@ -2,7 +2,7 @@ import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
 export class FavoriteMovies1668468214089 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('users').catch();
+    await queryRunner.dropTable('favorite_movies').catch();
     await queryRunner.createTable(
       new Table({
         name: 'favorite_movies',
@@ -31,7 +31,7 @@ export class FavoriteMovies1668468214089 implements MigrationInterface {
             type: 'timestamp',
           },
           {
-            name: 'user_id',
+            name: 'user',
             type: 'integer',
           },
         ],

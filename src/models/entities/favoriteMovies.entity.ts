@@ -1,4 +1,11 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+  JoinColumn,
+} from 'typeorm';
+import UserEntity from './user.entity';
 
 @Entity('favorite_movies')
 export default class FavoriteMoviesEntity {
@@ -23,6 +30,7 @@ export default class FavoriteMoviesEntity {
   })
   updatedAt: Date;
 
-  @Column({ name: 'user_id', type: 'integer' })
-  user_id: number;
+  @ManyToOne(() => UserEntity, (user) => user)
+  @JoinColumn({ name: 'user' })
+  user: UserEntity;
 }

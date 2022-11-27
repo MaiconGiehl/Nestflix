@@ -12,7 +12,6 @@ export default class FavoriteMoviesConverter {
     entity.image = input.image;
     entity.createdAt = new Date();
     entity.updatedAt = new Date();
-    entity.user_id = input.user_id;
 
     return entity;
   }
@@ -22,12 +21,20 @@ export default class FavoriteMoviesConverter {
 
     output.id = entity.id;
     output.title = entity.title;
+    output.image = entity.image;
     output.createdAt = entity.createdAt;
     output.updatedAt = entity.updatedAt;
-    output.user_id = entity.user_id;
+
+    if (output.user) {
+      output.user = {
+        id: entity.user.id,
+        name: entity.user.name,
+        active: entity.user.active,
+        createdAt: entity.user.createdAt,
+        updatedAt: entity.user.updatedAt,
+      };
+    }
 
     return output;
   }
 }
-
-//output = DTO
